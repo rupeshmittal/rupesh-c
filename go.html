@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JECRC Halloween Night 🎃</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --orange: #ff792c;
+    --dark: #241525;
+    --cream: #fff6eb;
+    --teal: #70c9bd;
+}
+
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: var(--orange);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+#app {
+    min-height: 100vh;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 5% 10%, #ff9c46 0 5%, transparent 25%),
+        radial-gradient(circle at 95% 85%, #e9511d 0 6%, transparent 28%),
+        var(--orange);
+}
+
+.decoration {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    font-size: clamp(30px, 5vw, 65px);
+    animation: float 4s ease-in-out infinite;
+}
+
+.d1 { top: 5%; left: 4%; }
+.d2 { top: 10%; right: 4%; animation-delay: 1s; }
+.d3 { bottom: 5%; left: 4%; animation-delay: 2s; }
+.d4 { bottom: 5%; right: 4%; animation-delay: .5s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-14px) rotate(5deg); }
+}
+
+.topbar {
+    width: min(100%, 960px);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: #481f16;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+}
+
+.progress {
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 20px;
+    height: 7px;
+    border-radius: 20px;
+    background: #ffffff80;
+    transition: .3s;
+}
+
+.dot.active {
+    background: #32192a;
+    width: 34px;
+}
+
+.page {
+    display: none;
+    position: relative;
+    z-index: 1;
+    width: min(100%, 960px);
+    padding: clamp(24px, 5vw, 55px);
+    min-height: 510px;
+    border: 3px solid white;
+    border-radius: 22px;
+    background: var(--cream);
+    box-shadow: 0 12px 0 #bd501f,
+                0 25px 45px #63280c45;
+    overflow: hidden;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: appear .4s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+    color: #b85127;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    margin-bottom: 14px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(43px, 7vw, 78px);
+    color: #ed702e;
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(32px, 5vw, 49px);
+    color: #3a1d30;
+    margin-bottom: 12px;
+}
+
+h3 {
+    color: #4b2635;
+    font-size: 19px;
+    margin-bottom: 9px;
+}
+
+p {
+    color: #73595b;
+    line-height: 1.7;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    align-items: center;
+    gap: 18px;
+}
+
+.hero-art {
+    text-align: center;
+    font-size: clamp(80px, 12vw, 145px);
+    line-height: 1.35;
+    animation: float 3.5s ease-in-out infinite;
+}
+
+.hero-art .small {
+    font-size: 36px;
+}
+
+.btnrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn {
+    padding: 13px 22px;
+    border: 0;
+    border-radius: 35px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 0 #32192a25;
+}
+
+.next {
+    background: var(--teal);
+    color: #183d39;
+}
+
+.back {
+    background: #f5dfd1;
+    color: #673729;
+}
+
+.cardgrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #f0d9c7;
+    border-radius: 17px;
+    padding: 18px;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px #a35a2415;
+}
+
+.emoji {
+    font-size: 36px;
+    margin-bottom: 9px;
+}
+
+.card p {
+    font-size: 14px;
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background: #ffe3d1;
+    color: #95421f;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.note {
+    background: #fff0dc;
+    border-left: 5px solid var(--orange);
+    padding: 14px;
+    border-radius: 9px;
+    margin-top: 18px;
+    line-height: 1.7;
+    color: #684332;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
+    margin-top: 22px;
+}
+
+.character {
+    background: #2b2031;
+    border-radius: 17px;
+    color: white;
+    padding: 18px 9px;
+    text-align: center;
+    transition: .2s;
+}
+
+.character:hover {
+    transform: scale(1.04);
+}
+
+.character .face {
+    font-size: 48px;
+    margin-bottom: 9px;
+}
+
+.character h3 {
+    color: #ffbd86;
+    font-size: 16px;
+}
+
+.character p {
+    color: #eee0eb;
+    font-size: 12px;
+}
+
+.finalpage {
+    text-align: center;
+    align-items: center;
+}
+
+.finalpage h1 {
+    font-size: clamp(40px, 8vw, 82px);
+    text-shadow: 3px 3px #ffd8b0;
+}
+
+.bigpumpkin {
+    font-size: clamp(90px, 15vw, 155px);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 4px #ff9e44); }
+    to { filter: drop-shadow(0 0 24px #ff9e44); }
+}
+
+.footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 23px;
+    text-align: center;
+    color: #532819;
+    font-weight: bold;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.confetti {
+    position: fixed;
+    top: -35px;
+    z-index: 5;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(650deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    #app { padding: 14px; }
+
+    .page {
+        min-height: 0;
+        padding: 26px 20px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-art { font-size: 90px; }
+
+    .cardgrid { grid-template-columns: 1fr; }
+
+    .characters { grid-template-columns: repeat(2, 1fr); }
+
+    .topbar {
+        font-size: 9px;
+        letter-spacing: .5px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+    <div class="decoration d1">🦇</div>
+    <div class="decoration d2">⭐</div>
+    <div class="decoration d3">🍬</div>
+    <div class="decoration d4">🎃</div>
+
+    <div class="topbar">
+        <span>🎃 JECRC SPOOKY NIGHT</span>
+
+        <div class="progress" id="progress">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <!-- PAGE 1: WELCOME -->
+
+    <section class="page active">
+        <div class="hero">
+            <div>
+                <div class="eyebrow">JECRC FOUNDATION PRESENTS</div>
+
+                <h1>Halloween<br>Party!</h1>
+
+                <p>
+                    Do you dare to enter the spooky side?
+                    Get ready for a night full of mystery,
+                    music, games, costumes and unforgettable fun!
+                </p>
+
+                <div class="btnrow">
+                    <button class="btn next" onclick="goTo(1)">
+                        ENTER THE NIGHT →
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-art">
+                🎃<br>
+                <span class="small">👻 🦇 ⭐</span><br>
+                🎃
+            </div>
+        </div>
+
+        <div class="note">
+            🕸️ <b>WELCOME, BRAVE STUDENTS!</b><br>
+            Five pages. One spooky adventure.
+            Are you ready to explore?
+        </div>
+    </section>
+
+    <!-- PAGE 2: GAMES -->
+
+    <section class="page">
+        <div class="eyebrow">CHAPTER 02 · THE CHALLENGE</div>
+
+        <h2>Spooky Games 👻</h2>
+
+        <p>
+            Bring your team, test your creativity
+            and let the Halloween games begin!
+        </p>
+
+        <div class="cardgrid">
+
+            <div class="card">
+                <div class="emoji">🔎</div>
+                <h3>Haunted Treasure Hunt</h3>
+                <p>
+                    Follow spooky clues, solve riddles
+                    and find the hidden treasure with your team.
+                </p>
+                <span class="tag">TEAM CHALLENGE</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🧠</div>
+                <h3>Horror Quiz</h3>
+                <p>
+                    Answer creepy trivia questions and
+                    prove your Halloween knowledge.
+                </p>
+                <span class="tag">BRAIN GAME</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🎭</div>
+                <h3>Best Costume</h3>
+                <p>
+                    Show off your most creative ghost,
+                    vampire, witch or original spooky look.
+                </p>
+                <span class="tag">COSTUME CONTEST</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🕵️</div>
+                <h3>Mystery Challenge</h3>
+                <p>
+                    Solve a fictional mystery using clues,
+                    teamwork and detective skills.
+                </p>
+                <span class="tag">MYSTERY TIME</span>
+            </div>
+
+        </div>
+
+        <div class="note">
+            🏆 Form your squad, play fair and have fun!
+            These are suggested games for the event.
+        </div>
+
+        <div class="btnrow">
+            <button class="btn back" onclick="goTo(0)">← Back</button>
+            <button class="btn next" onclick="goTo(2)">Next Page →</button>
+        </div>
+    </section>
+
+    <!-- PAGE 3: PERFORMANCES -->
+
+    <section class="page">
+        <div class="eyebrow">CHAPTER 03 · THE SHOW</div>
+
+        <h2>Live Performances 🎤</h2>
+
+        <p>
+            The lights go down, the music starts,
+            and the spooky stage comes alive!
+        </p>
+
+        <div class="cardgrid">
+
+            <div class="card">
+                <div class="emoji">💃</div>
+                <h3>Halloween Dance</h3>
+                <p>
+                    Energetic group dance performances
+                    with spooky music and creative moves.
+                </p>
+                <span class="tag">DANCE FLOOR</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🎵</div>
+                <h3>Singing & Music</h3>
+                <p>
+                    Enjoy live singing, musical talent
+                    and Halloween-themed tunes.
+                </p>
+                <span class="tag">LIVE MUSIC</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🎭</div>
+                <h3>Horror Skit</h3>
+                <p>
+                    Watch a suspenseful fictional story
+                    performed by talented students.
+                </p>
+                <span class="tag">SPOOKY THEATRE</span>
+            </div>
+
+            <div class="card">
+                <div class="emoji">🎧</div>
+                <h3>DJ & Dance Party</h3>
+                <p>
+                    Finish the night with beats,
+                    dancing and a festive atmosphere.
+                </p>
+                <span class="tag">PARTY TIME</span>
+            </div>
+
+        </div>
+
+        <div class="note">
+            🌟 Got a talent? Prepare your performance
+            and check the actual event schedule with the organizers.
+        </div>
+
+        <div class="btnrow">
+            <button class="btn back" onclick="goTo(1)">← Back</button>
+            <button class="btn next" onclick="goTo(3)">Next Page →</button>
+        </div>
+    </section>
+
+    <!-- PAGE 4: HORROR CHARACTERS -->
+
+    <section class="page">
+        <div class="eyebrow">CHAPTER 04 · ENTER THE DARK SIDE</div>
+
+        <h2>Choose Your Horror Look 🦇</h2>
+
+        <p>
+            A mysterious night needs mysterious characters.
+            Pick your favourite spooky costume!
+        </p>
+
+        <div class="characters">
+
+            <div class="character">
+                <div class="face">👻</div>
+                <h3>The Ghost</h3>
+                <p>Silent, spooky and mysterious.</p>
+            </div>
+
+            <div class="character">
+                <div class="face">🧛</div>
+                <h3>The Vampire</h3>
+                <p>Classic dark elegance.</p>
+            </div>
+
+            <div class="character">
+                <div class="face">🧙</div>
+                <h3>The Witch</h3>
+                <p>Magic and mystery.</p>
+            </div>
+
+            <div class="character">
+                <div class="face">🧟</div>
+                <h3>The Zombie</h3>
+                <p>Unforgettable undead style.</p>
+            </div>
+
+            <div class="character">
+                <div class="face">💀</div>
+                <h3>The Skeleton</h3>
+                <p>A spooky classic.</p>
+            </div>
+
+            <div class="character">
+                <div class="face">🤡</div>
+                <h3>The Creepy Clown</h3>
+                <p>Surprise everyone!</p>
+            </div>
+
+        </div>
+
+        <div class="note">
+            🕷️ <b>IMPORTANT MESSAGE:</b><br>
+            "Aap jarur kuch horror character lekar aana!" 👻<br>
+            Bring your most creative horror character costume.
+            Keep it fun, safe and respectful!
+        </div>
+
+        <div class="btnrow">
+            <button class="btn back" onclick="goTo(2)">← Back</button>
+            <button class="btn next" onclick="goTo(4)">Final Page →</button>
+        </div>
+    </section>
+
+    <!-- PAGE 5: HAPPY HALLOWEEN -->
+
+    <section class="page finalpage">
+        <div class="eyebrow">YOU MADE IT THROUGH THE NIGHT!</div>
+
+        <div class="bigpumpkin">🎃</div>
+
+        <h1>Happy<br>Halloween!</h1>
+
+        <p>
+            May your night be full of spooky surprises,
+            amazing memories, laughter and magical moments.
+        </p>
+
+        <h3 style="margin-top:20px;">Trick or Treat! 🍬</h3>
+
+        <p style="margin-top:10px;">
+            From the JECRC Halloween celebration idea,
+            with spooky vibes and lots of fun!
+        </p>
+
+        <div class="btnrow" style="justify-content:center;">
+            <button class="btn back" onclick="goTo(3)">← Back</button>
+            <button class="btn next" onclick="celebrate()">
+                🎉 Celebrate Again!
+            </button>
+            <button class="btn back" onclick="goTo(0)">
+                ↻ Start Over
+            </button>
+        </div>
+    </section>
+
+    <div class="footer">
+        HAPPY HALLOWEEN · TRICK OR TREAT · 🎃
+    </div>
+
+</div>
+
+<script>
+const pages = document.querySelectorAll(".page");
+const dots = document.querySelectorAll(".dot");
+
+let currentPage = 0;
+
+function goTo(pageNumber) {
+    if (pageNumber < 0 || pageNumber >= pages.length) {
+        return;
+    }
+
+    currentPage = pageNumber;
+
+    pages.forEach((page, index) => {
+        page.classList.toggle("active", index === currentPage);
+    });
+
+    dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === currentPage);
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (currentPage === 4) {
+        celebrate();
+    }
+}
+
+function celebrate() {
+    const symbols = ["🎃", "✨", "🍬", "👻", "🦇", "⭐"];
+
+    for (let i = 0; i < 32; i++) {
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+        piece.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.fontSize = (16 + Math.random() * 20) + "px";
+        piece.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+        document.body.appendChild(piece);
+
+        piece.addEventListener("animationend", () => {
+            piece.remove();
+        });
+    }
+}
+</script>
+
+</body>
+</html>
